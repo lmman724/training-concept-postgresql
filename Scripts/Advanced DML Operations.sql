@@ -27,4 +27,24 @@ select * from lmman_practice.employees
 
 ------
 
-select * from lmman_practice.users
+select employee_id, department_id, salary 
+from lmman_practice.employees
+order by employee_id
+limit 10
+
+------
+
+select department_id, sum(salary) as department_salary_expense, round(avg(salary), 2) as avg_salary_expense
+from lmman_practice.employees
+group by department_id
+order by department_id
+limit 10
+
+------
+
+select e.employee_id, e.department_id,e.salary, round(avg(e.salary), 2) as avg_salary_expense
+from lmman_practice.employees e
+where e.employee_id = 202
+group by e.employee_id, e.department_id
+
+
