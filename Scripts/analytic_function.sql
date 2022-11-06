@@ -107,3 +107,25 @@ FROM
 		GROUP BY ord.order_date
 		ORDER BY ord.order_date DESC) AS A
 WHERE A.revenue > 50000
+
+---
+SELECT * FROM lmman_practice.daily_product_revenue_v
+--
+
+SELECT order_date,order_item_product_id, revenue,
+	dense_rank() over(
+		PARTITION  BY order_date 
+		ORDER BY revenue DESC  ) AS dense_rak
+FROM lmman_practice.daily_product_revenue_v
+
+
+SELECT * 
+FROM (
+	SELECT order_date,order_item_product_id, revenue,
+	dense_rank() over(
+		PARTITION  BY order_date 
+		ORDER BY revenue DESC  ) AS dense_rak
+	FROM lmman_practice.daily_product_revenue_v
+	) AS B
+WHERE B.dense_rak <= 5
+
